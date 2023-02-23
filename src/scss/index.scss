@@ -224,3 +224,27 @@ main {
 .none {
   display: none;
 }
+.loader {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 8px solid #ffffff;
+  border-top-color: transparent;
+  animation-name: loader;
+  animation-iteration-count: infinite;
+  animation-duration: 2s;
+}
+.wrapper-loader {
+  height: 220px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} 
+@keyframes loader {
+  0%{
+    transform: rotate(0deg);
+  }
+  100%{
+    transform: rotate(360deg);
+  }
+}
