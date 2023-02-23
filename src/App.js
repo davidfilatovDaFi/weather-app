@@ -9,6 +9,7 @@ function App() {
   const [city,setCity] = useState('Moscow')
   const [cityName,setCityName] = useState('Moscow')
   const [weather,setWeather] = useState([])
+  const [current,setCurrent] = useState(0)
 
   const getTime = () => {
     const time = new Date()
@@ -43,7 +44,7 @@ function App() {
   useEffect(() => {
     fetchWeather()
   }, [])
-
+  console.log(current)
   return (
     <div className="App">
         <Header city={cityName}/>
@@ -58,7 +59,8 @@ function App() {
           <div className="content">
             {weather.map((e,i) => <Item 
             key={i} 
-            className={i === 0 ? "content__item current" : "content__item"}
+            onClick={() => setCurrent(i)}
+            className={i === current ? "content__item current" : "content__item"}
             day={['Saturday','Monday','Tuesday','Wensday','Thursday','Friday','Sunday'][new Date(e.dt_txt).getDay()]}
             temp={e.main.temp}
             humidity={e.main.humidity}

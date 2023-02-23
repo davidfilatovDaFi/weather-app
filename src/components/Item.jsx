@@ -3,9 +3,9 @@ import windicon from '../imgs/wind.png'
 import humidityicon from '../imgs/humidity.png'
 import pressureicon from '../imgs/pressure.png'
 
-export default function Item({className,temp,windspeed,humidity,pressure,day,icon}) {
+export default function Item({i,className,temp,windspeed,humidity,pressure,day,icon,onClick}) {
   return (
-    <div className={className}>
+    <div onClick={onClick} className={className}>
       <img className="content__icon" src={"http://openweathermap.org/img/wn/"+icon+"@2x.png"} alt="a" />
       <div className="content__body">
         <div className='content__titles'>
