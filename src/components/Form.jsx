@@ -1,16 +1,21 @@
-import React from 'react'
+import React, { memo } from 'react'
 
-export default function Form({fetchWeather,getValue,getName,city}) {
+const Form = memo(({fetchWeather,getValue,getName,city}) => {
   return (
     <form onSubmit={e => {
       e.preventDefault()
-      fetchWeather()
-      getName(city)
+      if (city.length !== 0) {
+        fetchWeather()
+        getName(city)
+      } 
       getValue('')
-      console.log(e.target.value)
+      console.log(city)
     }} className="find">
       <input value={city} onChange={e => getValue(e.target.value)} className="find__name" type="text" placeholder="Type city..." />
       <button className="find__button">Find</button>
     </form>
   )
-}
+})
+
+
+export default Form

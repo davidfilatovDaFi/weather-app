@@ -1,8 +1,9 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
+import Clock from "./components/Clock";
 import Form from "./components/Form";
 import Header from "./components/Header";
-import Item from "./components/Item";
-import Loader from "./components/Loader";
+import List from "./components/List";
+
 
 
 function App() {
@@ -22,15 +23,7 @@ function App() {
     setTime({date,hours,minutes})
   }
 
-  useEffect(() => {
-    getTime()
-    const intervalId = setInterval(getTime,1000)
-    return () => {
-      clearInterval(intervalId)
-    }
-  },[])
-
-  async function fetchWeather () {
+  const fetchWeather = useCallback(async () => {
     setLoader(true)
     const link = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=a2cd589df125dc8cbd69ea767fbb9c3c`
     const response = await fetch(link)
@@ -42,39 +35,31 @@ function App() {
     const filterdata2 = [...data2.list.filter(el => el.dt_txt.includes('15:00:00'))]
     setLoader(false)
     setWeather(filterdata2)
-    console.log(filterdata2)
-  }
-  
+    console.log(data)
+  },[city])
+
   useEffect(() => {
+    getTime()
+    const intervalId = setInterval(getTime,1000)
     fetchWeather()
-  }, [])
-  console.log(current)
+    return () => {
+      clearInterval(intervalId)
+    }
+  },[])
+
   return (
     <div className="App">
         <Header city={cityName}/>
-        <main >
+        <main>
           <Form city={city} getName={setCityName} getValue={setCity} fetchWeather={fetchWeather}/>
-          <div className="time">
-            <h1 className="time__clock">
-              {time.hours}:{(time.minutes+'').length === 1 ? '0'+time.minutes : time.minutes}
-            </h1>
-            <h2 className="time__date">{time.date}</h2>
-          </div>
-          <div className="content">
-
-            {loader ? <Loader/> : weather.map((e,i) => <Item 
-              key={i} 
-              onClick={() => setCurrent(i)}
-              className={i === current ? "content__item current" : "content__item"}
-              day={['Saturday','Monday','Tuesday','Wensday','Thursday','Friday','Sunday'][new Date(e.dt_txt).getDay()]}
-              temp={e.main.temp}
-              humidity={e.main.humidity}
-              pressure={e.main.pressure}
-              windspeed={e.wind.speed}
-              icon={e.weather[0].icon}
-              />)}
-
-          </div>
+          <Clock time={time}/>
+          <List 
+          setCurrent={setCurrent} 
+          weather={weather} 
+          loader={loader} 
+          current={current} 
+          className="content">
+          </List>
         </main>
     </div>
   );
