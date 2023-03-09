@@ -1,7 +1,6 @@
 import React, { memo } from 'react'
 
 const Header = memo(({city}) => {
-  console.log('h')
   return (
     <header className="header">
       <p className="header__text">Weather app</p>
