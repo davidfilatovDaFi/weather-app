@@ -6,7 +6,7 @@ const List = memo(({setCurrent,weather,loader,current,className,error}) => {
   return (
     <div className={className}>
       {error
-      ? <div className='error'>{error.message}</div> 
+      ? <div className='error'>data is not correct</div> 
       : loader ? <Loader/> : weather.map((e,i) => <Item 
       key={i} 
       onClick={() => setCurrent(i)}

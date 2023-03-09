@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import { useState } from 'react';
 
 const useFetch = (callback) => {
   const [loader,setLoader] = useState(false)
@@ -7,6 +7,7 @@ const useFetch = (callback) => {
   const fetching =  async () => {
     try {
       setLoader(true)
+      setError('')
       return await callback()
     } catch (error) {
       setError(error)
@@ -17,4 +18,4 @@ const useFetch = (callback) => {
   return [fetching,loader,error]
 }
 
-export default useFetch
+export default useFetch;

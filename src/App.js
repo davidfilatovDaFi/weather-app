@@ -28,6 +28,7 @@ function App() {
   const fetchWeather = useCallback(async () => {
     setWeather([...await fetching()][0])
     setCityName([...await fetching()][1])
+    console.log(weather)
   },[city])
 
   useEffect(() => {

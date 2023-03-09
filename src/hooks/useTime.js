@@ -23,4 +23,4 @@ const useTime = () => {
   return time
 }
 
-export default useTime
+export default useTime;
